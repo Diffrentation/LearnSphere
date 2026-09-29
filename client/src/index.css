@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import "tailwindcss";
+:root {
+  font-family: Outfit;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 22s) linear infinite;
+  will-change: transform;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transform: none;
+  }
+}
