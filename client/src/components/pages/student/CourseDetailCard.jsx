@@ -1,7 +1,16 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 function CourseDetailCard({ course }) {
+  const { user } = useSelector((state) => state.auth);
+  const username = user?.fullname || user?.username || "User";
+
+  const handleEnroll = () => {
+    toast.success(`${username} is enrolled in ${course.title}!`);
+  };
+
   return (
     <div className="w-full md:w-96 text-cyan-100 bg-cyan-900">
       <div className="bg-cyan-900 shadow-xl rounded-2xl p-6 w-full text-cyan-100 flex flex-col">
@@ -58,7 +67,11 @@ function CourseDetailCard({ course }) {
 
         {/* Actions */}
         <div className="flex gap-3 mt-6">
-          <button className="flex-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white py-2 px-4 rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition">
+          <button
+            type="button"
+            onClick={handleEnroll}
+            className="flex-1 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white py-2 px-4 rounded-lg hover:from-cyan-600 hover:to-cyan-700 transition"
+          >
             Enroll Now
           </button>
           <button className="flex-1 bg-gradient-to-r from-cyan-400 to-cyan-500 text-white py-2 px-4 rounded-lg hover:from-cyan-500 hover:to-cyan-600 transition">

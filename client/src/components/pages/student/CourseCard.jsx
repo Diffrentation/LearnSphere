@@ -1,10 +1,18 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 // import Rating from "./Rating";
 import { useGetAllCoursesQuery } from "../../../Redux/api/userApi";
 
 const CourseCard = () => {
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
+  const username = user?.fullname || user?.username || "User";
+
+  const handleEnroll = (course) => {
+    toast.success(`${username} is enrolled in ${course.title}!`);
+  };
 
   // Fetch courses from API
   const { data, isLoading, isError } = useGetAllCoursesQuery();
@@ -77,7 +85,7 @@ const CourseCard = () => {
                   </button>
                   <button
                     className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 text-sm"
-                    onClick={() => navigate(`/course/${course._id}`)}
+                    onClick={() => handleEnroll(course)}
                   >
                     Enroll
                   </button>
